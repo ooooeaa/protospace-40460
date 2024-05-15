@@ -74,3 +74,5 @@ end
 gem 'devise'
 gem 'mini_magick'
 gem 'image_processing', '~> 1.2'
+
+gem 'pry-rails'

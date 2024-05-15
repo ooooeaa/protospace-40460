@@ -1,6 +1,7 @@
 class PrototypesController < ApplicationController
 
-  before_action :move_to_index, except: [:index, :show]
+ before_action :move_to_index, except: [:index, :show]
+
  def index
  @prototypes= Prototype.all 
 end
@@ -10,9 +11,9 @@ def new
 end
 
 def create
-  Prototype.create(prototype_params)
+  @prototype = Prototype.new(prototype_params)
   if @prototype.save
-    redirect_to @prototype, notice: 'Prototype was successfully created.'
+    redirect_to action: :index
   else
     render :new
   end
@@ -24,15 +25,18 @@ def destroy
   redirect_to root_path
 end
 
-def move_to_index
-  unless user_signed_in?
-    redirect_to action: :index
-  end
+def show
+end
+
+def edit
+end
+
+def update
 end
 
 private
 def prototype_params
-  params.require(:prototype).permit(:catch_copy, :concept, :image, :title).merge(user_id: current_user.id)
+  params.require(:prototype).permit(:title, :catch_copy, :concept, :image).merge(user_id: current_user.id)
 end
 
 def move_to_index
